@@ -1,0 +1,4 @@
+[ {
+      "equalToJson" : "{\n  \"name\": \"Grocery Store\",\n  \"category\": \"Food\",\n  \"address\": {\n    \"street_number\": \"1111\",\n    \"street_name\": \"Pittsburgh St\",\n    \"city\": \"Pittsburgh\",\n    \"state\": \"PA\",\n    \"zip\": \"12345\"\n  },\n  \"geocode\": {\n    \"lat\": 100.0,\n    \"lng\": 100.0\n  }\n}",
+      "jsonCompareMode" : "LENIENT"
+    } ]

@@ -86,7 +86,7 @@ public class HTTP {
 		//con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
                 con.setRequestProperty("content-type","application/json");
 
-		String urlParameters = "code=0";
+		String urlParameters = "code=0&";
 
 		// Send post request
 		con.setDoOutput(true);
