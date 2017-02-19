@@ -60,14 +60,28 @@ public class Merchant {
         
         public int updateTransaction(Customer user, Purchase currPurchase, String addedDescription, double amount){
             try{
+                int i;
                 JSONObject body = new JSONObject();
                 String[] itemized = currPurchase.getDescription().split("\n");
                 String[] itemized_description = addedDescription.split("\n");
-                String[] itemized_new = new String[itemized.length - 4 + itemized_description.length];
-                for(int i = 0; i < itemized.length - 4; i++){
+                String[] itemized_new = new String[itemized.length + itemized_description.length];
+                for(i = 0; i < itemized.length - 4; i++){
                     itemized_new[i] = itemized[i];
                 }
+                for(i = 0; i < itemized_description.length; i++){
+                    itemized_new[i + itemized.length - 4] = itemized_description[i];
+                }
+                int curr = itemized.length - 4 + itemized_description.length;
+                itemized_new[curr] = "--------------------";
+                itemized_new[curr + 1] = "Total: $" + currPurchase.getAmount() + amount;
+                itemized_new[curr + 2] = itemized[itemized.length - 2];
+                itemized_new[curr + 3] = "--------------------";
+                
                 String description = "";
+                for(i = 0; i < itemized_new.length; i++){
+                    description = itemized_new[i] + "\n";
+                }
+                
                 body.put("description", description);
                 body.put("amount", currPurchase.getAmount() + amount);
                 globalHTTP.sendPost("purchase/" + currPurchase.getPurchaseId(), body);
@@ -79,7 +93,7 @@ public class Merchant {
         
         public int deleteTransaction(Customer user, Purchase purchase){
             try{
-                
+                //not impletmented
             }catch(Exception ex){
                 
             }

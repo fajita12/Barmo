@@ -64,6 +64,17 @@ public class Purchase {
 		}
 		// post /accounts/{id}/purchases
 	}
+        
+        public Purchase(String customerId, String description, double amount, String merchantId){
+            this.type = "merchant";
+            this.merchantId = merchantId;
+            this.payerId = customerId;
+            this.purchaseDate = "1/1/2017";
+            this.amount = amount;
+            this.status = Status.PENDING;
+            this.medium = Medium.BALANCE;
+            this.description = description;
+        }
 	
 	public int getPurchase(String purchaseId) {
 		

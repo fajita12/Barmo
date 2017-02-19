@@ -42,7 +42,7 @@ public class CustomerMain {
                         "Quit - Quits app\n" + 
                         "********************************************");   
             }else if(splitCmd[0].equals("view")){
-                String result = thisCust.getPurchases();
+                String result = thisCust.getPurchases().toString();
             }else if(splitCmd[0].equals("pay")){
                 
             }else if(splitCmd[0].equals("info")){

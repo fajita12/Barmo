@@ -5,7 +5,10 @@
  */
 package Mechanics;
 
+import static Mechanics.Tester.globalHTTP;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONObject;
 
 /**
@@ -37,7 +40,7 @@ public class MerchantMain {
                 System.out.println("*********************HELP*******************\n" +
                         "View - Views purchases\n" +
                         "Bill [custID] [amount] [desc] - bill someone\n" +
-                        "UpdateBill [purchID] [amount] [desc] - updates a bill\n" +
+                        "UpdateBill [custID] [purchID] [amount] [desc] - updates a bill\n" +
                         "DeleteBill [purchID] [amount] - deletes a bill\n" +
                         "Info - Views merchant info\n" +
                         "Update - Updates merchant info\n" +
@@ -48,11 +51,15 @@ public class MerchantMain {
             }else if(splitCmd[0].equals("view")){
                 System.out.println(thisMerch.getTransactions());
             }else if(splitCmd[0].equals("bill")){
-                System.out.println();
+                thisMerch.sendTransaction(new Customer(splitCmd[1]), new Purchase(splitCmd[1], splitCmd[3], Double.parseDouble(splitCmd[2]), merchID));
             }else if(splitCmd[0].equals("updatebill")){
-                System.out.println();
+                try {
+                    System.out.println("Status:" + thisMerch.updateTransaction(new Customer(splitCmd[1]), new Purchase(splitCmd[2]), merchID, Double.parseDouble(splitCmd[3])));
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
             }else if(splitCmd[0].equals("deletebill")){
-                System.out.println();
+                System.out.println("Not implemented since no need");
             }else if(splitCmd[0].equals("info")){
                 System.out.println(thisMerch.getInfo());
             }else if(splitCmd[0].equals("update")){
