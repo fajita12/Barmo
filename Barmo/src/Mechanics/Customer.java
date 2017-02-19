@@ -103,10 +103,10 @@ public class Customer {
 		// put /customers/{id}
 	}
         
-    public JSONObject getPurchases() {
+    public JSONArray getPurchases() {
         
     	try {
-    		return new JSONObject(globalHTTP.sendGet("accounts/" 
+    		return new JSONArray(globalHTTP.sendGet("accounts/" 
     					+ accountId + "/purchases"));
     	} catch (Exception e) {
     		
