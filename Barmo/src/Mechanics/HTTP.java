@@ -36,8 +36,8 @@ public class HTTP {
         con.setRequestProperty("content-type","application/json");
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+//        System.out.println("\nSending 'GET' request to URL : " + url);
+//        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -49,7 +49,7 @@ public class HTTP {
         in.close();
 
         //print result
-        System.out.println(response.toString());
+//        System.out.println(response.toString());
         return(response.toString());
 	}
 
@@ -74,8 +74,8 @@ public class HTTP {
         osw.close();
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+ //       System.out.println("\nSending 'POST' request to URL : " + url);
+//        System.out.println("Response Code : " + responseCode);
         StringBuffer response = new StringBuffer();
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -86,7 +86,7 @@ public class HTTP {
             in.close();
 
             //print result
-            System.out.println(response.toString());
+//            System.out.println(response.toString());
         }catch(IOException o){
             System.out.println(o.getMessage());
         }
@@ -112,8 +112,8 @@ public class HTTP {
         osw.close();
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'PUT' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+//        System.out.println("\nSending 'PUT' request to URL : " + url);
+//        System.out.println("Response Code : " + responseCode);
         StringBuffer response = new StringBuffer();
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -124,7 +124,7 @@ public class HTTP {
             in.close();
 
             //print result
-            System.out.println(response.toString());
+//            System.out.println(response.toString());
         }catch(IOException o){
             System.out.println(o.getMessage());
         }
@@ -143,8 +143,8 @@ public class HTTP {
         con.setRequestProperty("content-type","application/json");
 
         int responseCode = con.getResponseCode();
-        System.out.println("\nSending 'DELETE' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+//        System.out.println("\nSending 'DELETE' request to URL : " + url);
+//        System.out.println("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -156,7 +156,7 @@ public class HTTP {
         in.close();
 
         //print result
-        System.out.println(response.toString());
+//        System.out.println(response.toString());
         return(response.toString());
     }
 }

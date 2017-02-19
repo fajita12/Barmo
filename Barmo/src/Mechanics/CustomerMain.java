@@ -44,6 +44,7 @@ public class CustomerMain {
                         "Tip [billID] [amount] - Add a tip\n" +
                         "Info - Views customer info\n" +
                         "Update - Updates customer info (must be in JSON format)\n" +
+                        "Fund [amount] - add more money to account\n" + 
                         "Admin - overview of everything\n" +
                         "Quit - Quits app\n" + 
                         "********************************************");   
@@ -79,6 +80,8 @@ public class CustomerMain {
                 }catch(Exception ex){
                     System.out.println("Failed");
                 }
+            }else if(splitCmd[0].equals("fund")){
+                thisCust.fundAccount(Double.parseDouble(splitCmd[1]));
             }else if(splitCmd[0].equals("quit")){
                 running = false;
             }else{

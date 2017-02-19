@@ -4,11 +4,12 @@ import static Mechanics.Tester.globalHTTP;
 import org.json.JSONObject;
 
 import Mechanics.Purchase.Status;
+import org.json.JSONArray;
 
 public class Customer {
 	
 	private String customerId;
-	private String accountId = "58a962ef1756fc834d9059bb";
+	private String accountId;
 	private double accountBalance;
 	private String firstName;
 	private String lastName;
@@ -20,10 +21,10 @@ public class Customer {
 		this.customerId = customerId;
 		try {
 			
-                    //JSONObject object = new JSONObject(globalHTTP.sendGet("customers/" + customerId + "/accounts"));
-                    //System.out.println(object.keySet().toString());
-                   //this.accountId = object.getString("_id");
-                    //this.accountBalance = object.getDouble("balance");
+                    JSONArray jArray = new JSONArray(globalHTTP.sendGet("customers/" + customerId + "/accounts"));
+            JSONObject object = jArray.getJSONObject(0);
+            this.accountId = object.getString("_id");
+            this.accountBalance = object.getDouble("balance");
 	    	
                     JSONObject obj = new JSONObject(globalHTTP.sendGet("customers/" + customerId));
                     this.firstName = obj.getString("first_name");
