@@ -38,7 +38,8 @@ public class Tester {
         
         System.out.println("Testing 3 - Sending Http PUT request");
         
-        //globalHTTP.sendPut("customers/0", body);
+        
+        globalHTTP.sendPut("customers/0", body);
     
     }
     
