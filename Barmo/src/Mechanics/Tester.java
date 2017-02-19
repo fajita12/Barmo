@@ -25,21 +25,20 @@ public class Tester {
 
         System.out.println("\nTesting 2 - Send Http POST request");
         JSONObject body = new JSONObject();
-        body.put("first_name", "brad");
-        body.put("last_name", "rogers");
+        //body.put("first_name", "brad");
+        //body.put("last_name", "rogers");
         JSONObject address = new JSONObject();
-        address.put("street_number", "string");
-        address.put("street_name", "string");
-        address.put("city", "string");
-        address.put("state", "WI");
-        address.put("zip", "53703");
+        address.put("street_number", "new street");
+        address.put("street_name", "cool street");
+        address.put("city", "new city");
+        address.put("state", "MA");
+        address.put("zip", "99999");
         body.put("address", address);
         //globalHTTP.sendPost("customers", body);
         
         System.out.println("Testing 3 - Sending Http PUT request");
         
-        
-        globalHTTP.sendPut("customers/0", body);
+        globalHTTP.sendPut("customers/58a8e9d41756fc834d9053e9", body);
     
     }
     

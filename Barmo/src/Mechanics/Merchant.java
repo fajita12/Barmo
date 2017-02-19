@@ -1,8 +1,6 @@
 package Mechanics;
 
 import static Mechanics.Tester.globalHTTP;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONObject;
 
 
