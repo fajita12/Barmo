@@ -19,31 +19,11 @@ import org.json.JSONObject;
  */
 public class HTTP {
         
-    public static String baseURL = "http://api.reimaginebanking.com/";
-    public static String APIKey = "?key=317e9cc5ca5935508741dfe84740f0eb";
-
-    public static void main(String[] args) throws Exception {
-        HTTP http = new HTTP();
-
-        System.out.println("Testing 1 - Send Http GET request");
-        http.sendGet("customers");
-
-        System.out.println("\nTesting 2 - Send Http POST request");
-        JSONObject body = new JSONObject();
-        body.put("first_name", "brad");
-        body.put("last_name", "rogers");
-        JSONObject address = new JSONObject();
-        address.put("street_number", "string");
-        address.put("street_name", "string");
-        address.put("city", "string");
-        address.put("state", "WI");
-        address.put("zip", "53703");
-        body.put("address", address);
-        http.sendPost("customers", body);
-    }
+    private static String baseURL = "http://api.reimaginebanking.com/";
+    private static String APIKey = "?key=317e9cc5ca5935508741dfe84740f0eb";
 
 	// HTTP GET request
-    private String sendGet(String cmd) throws Exception {
+    public String sendGet(String cmd) throws Exception {
 
         String url = baseURL + cmd + APIKey;
 
@@ -74,7 +54,7 @@ public class HTTP {
 	}
 
 	// HTTP POST request
-    private String sendPost(String cmd, JSONObject body) throws Exception {
+    public String sendPost(String cmd, JSONObject body) throws Exception {
 
         String url = baseURL + cmd + APIKey;
         URL obj = new URL(url);
