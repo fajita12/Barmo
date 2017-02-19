@@ -1,8 +1,6 @@
 package Mechanics;
 
 import static Mechanics.Tester.globalHTTP;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONObject;
 
 
@@ -10,7 +8,7 @@ public class Merchant {
 
 	private String id;
 	private String name;
-	private String category;
+	private String category = "hello";
 	private String[] address;
 	private String lat;
 	private String lng;
@@ -20,7 +18,8 @@ public class Merchant {
             try {
                 JSONObject obj = new JSONObject(globalHTTP.sendGet("merchants/" + id));
                 this.name = obj.getString("name");
-                this.category = obj.getString("category");
+                //this.category = obj.getString("category");
+                this.category = obj.getJSONArray("category").toString();
                 address = new String[5];
                 JSONObject JSONaddress = obj.getJSONObject("address");
                 this.address[0] = JSONaddress.getString("street_number");

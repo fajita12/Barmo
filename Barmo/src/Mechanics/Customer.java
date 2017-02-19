@@ -163,8 +163,8 @@ public class Customer {
                 "Street Name:   " + this.address[1] + "\n" +
                 "City:          " + this.address[2] + "\n" + 
                 "State:         " + this.address[3] + "\n" + 
-                "Zip:           " + this.address[4] + "\n";
-              //  "Account Number:" + this.accountId;
+                "Zip:           " + this.address[4] + "\n" +
+                "Account Number:" + this.accountId;
         
     }
 }
