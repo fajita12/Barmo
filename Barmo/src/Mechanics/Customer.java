@@ -161,9 +161,9 @@ public class Customer {
     	
     	JSONObject obj = new JSONObject();
     	obj.put("medium", "balance");
-    	obj.put("transaction_data", "string");
-    	obj.put("amount", accountBalance);
-    	obj.put("description", "string");
+    	obj.put("transaction_data", "2017-01-01");
+    	obj.put("amount", amount);
+    	obj.put("description", "deposit");
     	
     	try {
     		globalHTTP.sendPost("accounts/" + accountId + "/deposits", obj);
