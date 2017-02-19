@@ -124,7 +124,7 @@ public class Customer {
     		obj.put("status", Status.COMPLETED.toString().toLowerCase());
     	}
     
-    	purchase.updatePurchase(purchase.getPurchaseId(), obj);
+    	purchase.updatePurchase(obj);
     	
     	return withstanding;
     }

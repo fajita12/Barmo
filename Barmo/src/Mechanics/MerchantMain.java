@@ -78,13 +78,13 @@ public class MerchantMain {
             }else if(splitCmd[0].equals("admin")){
                 try{
                     System.out.println("Merchants:");
-                    System.out.println(globalHTTP.sendGet("merchants"));
+                    globalHTTP.sendGet("merchants");
                     System.out.println("Customers:");
-                    System.out.println(globalHTTP.sendGet("customers"));
+                    globalHTTP.sendGet("customers");
                     System.out.println("Accounts:");
-                    System.out.println(globalHTTP.sendGet("accounts"));
+                    globalHTTP.sendGet("accounts");
                     System.out.println("Purchases:");
-                    System.out.println(globalHTTP.sendGet("purchases"));
+                    globalHTTP.sendGet("merchants/57cf75cea73e494d8675ec49/purchases");
                 }catch(Exception ex){
                     System.out.println("Failed");
                 }

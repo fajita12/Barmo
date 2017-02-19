@@ -89,7 +89,7 @@ public class Purchase {
 		}
 	}
 	
-	public int updatePurchase(String purchaseId, JSONObject body) {
+	public int updatePurchase(JSONObject body) {
 		try {
 			globalHTTP.sendPut("purchases/" + purchaseId, body);
 			return 0;
@@ -131,12 +131,9 @@ public class Purchase {
         
         public JSONObject toJSON(){
             JSONObject obj = new JSONObject();
-            obj.put("type", type);
             obj.put("merchant_id", merchantId);
-            obj.put("payer_id",payerId);
             obj.put("purchase_date", purchaseDate);
             obj.put("amount",amount);
-            obj.put("status", status.toString().toLowerCase());
             obj.put("medium", medium.toString().toLowerCase());
             obj.put("description", description);
             
