@@ -43,10 +43,18 @@ public class CustomerMain {
                         "Quit - Quits app\n" + 
                         "********************************************");   
             }else if(splitCmd[0].equals("view")){
-                String result = thisCust.getPurchases().toString();
-                System.out.println(result);
+            	try {
+            		String result = thisCust.getPurchases().toString();
+            		System.out.println(result);
+            	} catch (NullPointerException e) {
+            		System.out.println("Zero purchases on file");
+            	}
             }else if(splitCmd[0].equals("pay")){
-                System.out.println("Status: " + thisCust.payTab(new Purchase(splitCmd[1]), Double.parseDouble(splitCmd[2])));
+            	try {
+            		System.out.println("Status: " + thisCust.payTab(new Purchase(splitCmd[1]), Double.parseDouble(splitCmd[2])));
+            	} catch (ArrayIndexOutOfBoundsException e) {
+            		System.out.println("No Payments available to pay");
+            	}
             }else if(splitCmd[0].equals("info")){
                 System.out.println(thisCust.getInfo());
             }else if(splitCmd[0].equals("update")){

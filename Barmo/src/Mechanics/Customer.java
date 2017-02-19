@@ -4,13 +4,12 @@ import static Mechanics.Tester.globalHTTP;
 import org.json.JSONObject;
 
 import Mechanics.Purchase.Status;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Customer {
 	
 	private String customerId;
 	private String accountId;
+	private double accountBalance;
 	private String firstName;
 	private String lastName;
 	private String[] address;
@@ -21,6 +20,10 @@ public class Customer {
 		this.customerId = customerId;
 		
 		try {
+			
+			JSONObject object = new JSONObject(globalHTTP.sendGet("customers/" + customerId + "/accounts"));
+			this.accountId = object.getString("_id");
+			this.accountBalance = object.getDouble("balance");
 			
 			JSONObject obj = new JSONObject(globalHTTP.sendGet("customers/" + customerId));
             this.firstName = obj.getString("first_name");
@@ -35,7 +38,12 @@ public class Customer {
             
         } catch(Exception e) {
         	
-        	
+        	customerId = null;
+        	accountId = null;
+        	accountBalance = 0;
+        	firstName = null;
+        	lastName = null;
+        	address = null;
 			
 		}
 		// post /customers
@@ -94,11 +102,14 @@ public class Customer {
 	}
         
     public JSONObject getPurchases() {
-            try {
-                return new JSONObject(globalHTTP.sendGet("accounts/" + this.accountId + "/purchases"));
-            } catch (Exception ex) {
-                return null;
-            }
+        
+    	try {
+    		return new JSONObject(globalHTTP.sendGet("accounts/" 
+    					+ accountId + "/purchases"));
+    	} catch (Exception e) {
+    		
+    		return null;
+    	}
     }
     
     public double payTab(Purchase purchase, double amount) {
