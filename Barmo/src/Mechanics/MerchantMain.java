@@ -6,6 +6,7 @@
 package Mechanics;
 
 import java.util.Scanner;
+import org.json.JSONObject;
 
 /**
  *
@@ -35,9 +36,9 @@ public class MerchantMain {
             if(splitCmd[0].equals("help")){
                 System.out.println("*********************HELP*******************\n" +
                         "View - Views purchases\n" +
-                        "Bill [custID] [amount] [desc] - Pay purchases\n" +
-                        "UpdateBill [purchID] [amount] [desc] - updates a purchase\n" +
-                        "DeleteBill [purchID] [amount] - deletes a purchase\n" +
+                        "Bill [custID] [amount] [desc] - bill someone\n" +
+                        "UpdateBill [purchID] [amount] [desc] - updates a bill\n" +
+                        "DeleteBill [purchID] [amount] - deletes a bill\n" +
                         "Info - Views merchant info\n" +
                         "Update - Updates merchant info\n" +
                         "Quit - Quits app\n" +
@@ -55,7 +56,11 @@ public class MerchantMain {
             }else if(splitCmd[0].equals("info")){
                 System.out.println(thisMerch.getInfo());
             }else if(splitCmd[0].equals("update")){
-                thisMerch.updateTransaction(null, null, null);
+                JSONObject obj = new JSONObject();
+                for(int i = 1; i < splitCmd.length; i++){
+                    obj.put(splitCmd[i].split(":")[0], splitCmd[i].split(":")[1]);
+                }
+                thisMerch.updateMerchant(obj);
             }else if(splitCmd[0].equals("quit")){
                 running = false;
             }else{

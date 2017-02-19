@@ -49,23 +49,49 @@ public class Merchant {
             return 0;
 	}
         
-        public int sendTransaction(Customer user, Bill bill){
-            
+        public int sendTransaction(Customer user, Purchase purchase){
+            try{
+                globalHTTP.sendPost("accounts/" + user.getAccountId() + "/purchases", purchase.toJSON());
+            }catch(Exception ex){
+                return -1;
+            }
             return 0;
         }
         
-        public int updateTransaction(Customer user, Bill currBill, Bill updateBill){
-            
+        public int updateTransaction(Customer user, Purchase currPurchase, String addedDescription, double amount){
+            try{
+                JSONObject body = new JSONObject();
+                String[] itemized = currPurchase.getDescription().split("\n");
+                String[] itemized_description = addedDescription.split("\n");
+                String[] itemized_new = new String[itemized.length - 4 + itemized_description.length];
+                for(int i = 0; i < itemized.length - 4; i++){
+                    itemized_new[i] = itemized[i];
+                }
+                String description = "";
+                body.put("description", description);
+                body.put("amount", currPurchase.getAmount() + amount);
+                globalHTTP.sendPost("purchase/" + currPurchase.getPurchaseId(), body);
+            }catch(Exception ex){
+                return -1;
+            }
             return 0;
         }
         
-        public int deleteTransaction(Customer user, Bill bill){
-            
+        public int deleteTransaction(Customer user, Purchase purchase){
+            try{
+                
+            }catch(Exception ex){
+                
+            }
             return 0;
         }
         
-        public String getTransactions(){
-            return "";
+        public JSONObject getTransactions(){
+            try {
+                return new JSONObject(globalHTTP.sendGet("merchants/" + this.id + "/purchases"));
+            } catch (Exception ex) {
+                return null;
+            }
         }
         
         public String getInfo(){
