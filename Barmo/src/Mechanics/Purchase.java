@@ -78,18 +78,6 @@ public class Purchase {
 		}
 	}
 	
-	public int getMerchantPurchases(String merchantId) {
-		
-		try {
-			
-			globalHTTP.sendGet("merchants/" + merchantId + "/purchases");
-			return 0;
-		} catch (Exception e) {
-			
-			return -1;
-		}
-	}
-	
 	public int updatePurchase(String purchaseId, JSONObject body) {
 		try {
 			globalHTTP.sendPut("purchases/" + purchaseId, body);
@@ -120,6 +108,14 @@ public class Purchase {
         
         public String getDescription(){
             return this.description;
+        }
+        
+        public String getMerchantId(){
+            return this.merchantId;
+        }
+        
+        public String getPurchaseId(){
+            return this.purchaseId;
         }
         
         public JSONObject toJSON(){
