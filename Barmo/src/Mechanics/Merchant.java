@@ -63,6 +63,24 @@ public class Merchant {
             
             return 0;
         }
+        
+        public String getTransactions(){
+            return "";
+        }
+        
+        public String getInfo(){
+            return "Info for Merch:" + this.id + "\n" +
+                    "Name:      " + this.name + "\n" +
+                    "Catergory: " + this.category + "\n" +
+                    "Address:\n" + 
+                    "Street Number: " + this.address[0] + "\n" +
+                    "Street Name:   " + this.address[1] + "\n" +
+                    "City:          " + this.address[2] + "\n" + 
+                    "State:         " + this.address[3] + "\n" + 
+                    "Zip:           " + this.address[4] + "\n" +
+                    "Lat:"  + this.lat + "\n" +
+                    "Lng:"  + this.lng;
+        }
 	
 	
 }

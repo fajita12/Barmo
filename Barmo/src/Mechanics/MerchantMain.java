@@ -45,17 +45,17 @@ public class MerchantMain {
                 
                 
             }else if(splitCmd[0].equals("view")){
-                running = false;
+                System.out.println(thisMerch.getTransactions());
             }else if(splitCmd[0].equals("bill")){
-                running = false;
+                System.out.println();
             }else if(splitCmd[0].equals("updatebill")){
-                running = false;
+                System.out.println();
             }else if(splitCmd[0].equals("deletebill")){
-                running = false;
+                System.out.println();
             }else if(splitCmd[0].equals("info")){
-                running = false;
+                System.out.println(thisMerch.getInfo());
             }else if(splitCmd[0].equals("update")){
-                running = false;
+                thisMerch.updateTransaction(null, null, null);
             }else if(splitCmd[0].equals("quit")){
                 running = false;
             }else{
