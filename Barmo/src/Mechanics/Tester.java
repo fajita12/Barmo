@@ -23,7 +23,16 @@ public class Tester {
      */
     public static void main(String[] args){
         JSONObject obj = new JSONObject();
-        
+        obj.put("type", "Credit Card");
+        obj.put("nickname", "string");
+        obj.put("rewards",0);
+        obj.put("balance",0);
+        obj.put("account_number","abcdefghijklmnop");
+        try {
+            //globalHTTP.sendPost("customers/58a8e9fa1756fc834d9053ea/accounts", obj);
+        } catch (Exception ex) {
+            System.out.println("Failed");
+        }
         
         System.out.println("Welcome to the Barmo Demo");
         System.out.println("What would you like this instance to be? Customer or Merchant?");

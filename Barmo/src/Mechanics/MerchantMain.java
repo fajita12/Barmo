@@ -55,7 +55,10 @@ public class MerchantMain {
             }else if(splitCmd[0].equals("view")){
                 System.out.println(thisMerch.getTransactions());
             }else if(splitCmd[0].equals("bill")){
-                thisMerch.sendTransaction(new Customer(splitCmd[1]), new Purchase(splitCmd[1], splitCmd[3], Double.parseDouble(splitCmd[2]), merchID));
+                System.out.println("before");
+                Customer c = new Customer(splitCmd[1]);
+                System.out.println("after");
+                thisMerch.sendTransaction(c, new Purchase(splitCmd[1], splitCmd[3], Double.parseDouble(splitCmd[2]), merchID));
             }else if(splitCmd[0].equals("updatebill")){
                 try {
                     System.out.println("Status:" + thisMerch.updateTransaction(new Customer(splitCmd[1]), new Purchase(splitCmd[2]), merchID, Double.parseDouble(splitCmd[3])));

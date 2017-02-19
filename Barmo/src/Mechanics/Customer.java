@@ -8,7 +8,7 @@ import Mechanics.Purchase.Status;
 public class Customer {
 	
 	private String customerId;
-	private String accountId;
+	private String accountId = "58a962ef1756fc834d9059bb";
 	private double accountBalance;
 	private String firstName;
 	private String lastName;
@@ -21,22 +21,23 @@ public class Customer {
 		
 		try {
 			
-			JSONObject object = new JSONObject(globalHTTP.sendGet("customers/" + customerId + "/accounts"));
-			this.accountId = object.getString("_id");
-			this.accountBalance = object.getDouble("balance");
-			
-			JSONObject obj = new JSONObject(globalHTTP.sendGet("customers/" + customerId));
-            this.firstName = obj.getString("first_name");
-            this.lastName = obj.getString("last_name");
-            address = new String[5];
-            JSONObject address = new JSONObject(obj.getString("address"));
-            this.address[0] = address.getString("street_number");
-            this.address[1] = address.getString("street_name");
-            this.address[2] = address.getString("city");
-            this.address[3] = address.getString("state");
-            this.address[4] = address.getString("zip");
-            
-        } catch(Exception e) {
+                    //JSONObject object = new JSONObject(globalHTTP.sendGet("customers/" + customerId + "/accounts"));
+                    //System.out.println(object.keySet().toString());
+                   //this.accountId = object.getString("_id");
+                    //this.accountBalance = object.getDouble("balance");
+	    	
+                    JSONObject obj = new JSONObject(globalHTTP.sendGet("customers/" + customerId));
+                    this.firstName = obj.getString("first_name");
+                    this.lastName = obj.getString("last_name");
+                    address = new String[5];
+                    JSONObject address = new JSONObject(obj.getString("address"));
+                    this.address[0] = address.getString("street_number");
+                    this.address[1] = address.getString("street_name");
+                    this.address[2] = address.getString("city");
+                    this.address[3] = address.getString("state");
+                    this.address[4] = address.getString("zip");
+
+                } catch(Exception e) {
         	
         	customerId = null;
         	accountId = null;
