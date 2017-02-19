@@ -30,9 +30,9 @@ public class Tester {
         Scanner scnr = new Scanner(System.in);
         System.out.print("This Instance:");
         String cmd = scnr.nextLine();
-        if(cmd.equals("Merchant")){
+        if(cmd.equals("Merchant") || cmd.equals("merchant")){
             MerchantMain.startUpMerchant();
-        }else if(cmd.equals("Customer")){
+        }else if(cmd.equals("Customer") || cmd.equals("customer")){
             CustomerMain.startUpCustomer();
         }
         System.out.println("Thank you for using Barmo");
