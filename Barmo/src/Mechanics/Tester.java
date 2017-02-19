@@ -38,7 +38,7 @@ public class Tester {
         
         System.out.println("Testing 3 - Sending Http PUT request");
         
-        globalHTTP.sendPut("customers/58a8e9d41756fc834d9053e9", body);
+        globalHTTP.sendDelete("customers/58a8e9d41756fc834d9053e9");
     
     }
     
