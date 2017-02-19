@@ -7,6 +7,7 @@ package Mechanics;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
+import org.json.JSONObject;
 /**
  *
  * @author Brad Rogers
@@ -76,70 +78,57 @@ public class Test {
 	// HTTP POST request
 	private void sendPost() throws Exception {
 
-		String url = baseURL + "customers" + APIKey;
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            String url = baseURL + "customers" + APIKey;
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		//add reuqest header
-		con.setRequestMethod("POST");
+            con.setDoOutput(true);
+            //con.setDoInput(true);
             
-		//con.setRequestProperty("User-Agent", USER_AGENT);
-		//con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-                con.setRequestProperty("content-type","application/json");
-                
-                //con.connect();
-                /**
-		String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
-                urlParameters = "{" +
-  "\"first_name\": \"string\"," +
-  "\"last_name\": \"string\"," +
-  "\"address\": {" +
-    "\"street_number\": \"string\"," +
-    "\"street_name\": \"string\"," +
-    "\"city\": \"string\"," +
-    "\"state\": \"string\"," +
-    "\"zip\": \"string\"" +
-  "}" +
-"}";
+            con.setRequestProperty("Content-Type","application/json");
+            con.setRequestProperty("Accept", "application/json");
+            
+            con.setRequestMethod("POST");
 
-                urlParameters = "first_name=hello&last_name=world&address=";
-**/
-		// Send post request
-                byte[] out = "{\"id\":\"0\",\"message\":\"string\",\"objectCreated\":{\"first_name\":\"brad\",\"last_name\":\"rogers\",\"address\":{\"street_number\":\"string\",\"street_name\":\"string\",\"city\":\"string\",\"state\":\"string\",\"zip\":\"string\"}}}".getBytes(StandardCharsets.UTF_8);
-		int length = out.length;
-                con.setFixedLengthStreamingMode(length);
-                con.setDoOutput(true);
-		//DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                
-                //OutputStream os = con.getOutputStream();
-                //OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-                //osw.write(urlParameters);
-                //osw.flush();
-                //osw.close();
-		//wr.writeBytes(urlParameters);
-		//wr.flush();
-		//wr.close();
+            // Send post request
+            JSONObject body = new JSONObject();
+            body.put("first_name", "brad");
+            body.put("last_name", "rogers");
+            JSONObject address = new JSONObject();
+            address.put("street_number", "string");
+            address.put("street_name", "string");
+            address.put("city", "string");
+            address.put("state", "WI");
+            address.put("zip", "53703");
+            body.put("address", address);
+            System.out.println(body.toString());
 
-                try(OutputStream os = con.getOutputStream()){
-                    os.write(out);
+            //DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+
+            OutputStream os = con.getOutputStream();
+            OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+            osw.write(body.toString());
+            osw.flush();
+            osw.close();
+
+            int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'POST' request to URL : " + url);
+            //System.out.println("Post parameters : " + urlParameters);
+            System.out.println("Response Code : " + responseCode);
+            try{
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
                 }
-		//int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		//System.out.println("Post parameters : " + urlParameters);
-		//System.out.println("Response Code : " + responseCode);
+                in.close();
 
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
-
-		//print result
-		System.out.println(response.toString());
+                //print result
+                System.out.println(response.toString());
+            }catch(IOException o){
+                System.out.println(o.getMessage());
+            }
 
 	}
     
