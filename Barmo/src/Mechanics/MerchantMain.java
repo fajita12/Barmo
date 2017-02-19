@@ -55,9 +55,7 @@ public class MerchantMain {
             }else if(splitCmd[0].equals("view")){
                 System.out.println(thisMerch.getTransactions());
             }else if(splitCmd[0].equals("bill")){
-                System.out.println("before");
                 Customer c = new Customer(splitCmd[1]);
-                System.out.println("after");
                 thisMerch.sendTransaction(c, new Purchase(splitCmd[1], splitCmd[3], Double.parseDouble(splitCmd[2]), merchID));
             }else if(splitCmd[0].equals("updatebill")){
                 try {
@@ -84,7 +82,7 @@ public class MerchantMain {
                     System.out.println("Accounts:");
                     globalHTTP.sendGet("accounts");
                     System.out.println("Purchases:");
-                    globalHTTP.sendGet("merchants/57cf75cea73e494d8675ec49/purchases");
+                    globalHTTP.sendGet("merchants/" +merchID + "/purchases");
                 }catch(Exception ex){
                     System.out.println("Failed");
                 }

@@ -76,7 +76,7 @@ public class CustomerMain {
                     System.out.println("Accounts:");
                     System.out.println(globalHTTP.sendGet("accounts"));
                     System.out.println("Purchases:");
-                    globalHTTP.sendGet("merchants/57cf75cea73e494d8675ec49/purchases");
+                    globalHTTP.sendGet("merchants/" +merchID + "/purchases");
                 }catch(Exception ex){
                     System.out.println("Failed");
                 }
