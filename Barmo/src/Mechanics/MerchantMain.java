@@ -46,7 +46,7 @@ public class MerchantMain {
                         "UpdateBill [custID] [purchID] [amount] [desc] - updates a bill\n" +
                         "DeleteBill [purchID] [amount] - deletes a bill\n" +
                         "Info - Views merchant info\n" +
-                        "Update - Updates merchant info\n" +
+                        "Update - Updates merchant info (must be in JSON format)\n" +
                         "Admin - overview of everything" + 
                         "Quit - Quits app\n" +
                         "********************************************");

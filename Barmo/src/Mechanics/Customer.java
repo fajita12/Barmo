@@ -124,7 +124,9 @@ public class Customer {
     		obj.put("status", Status.COMPLETED.toString().toLowerCase());
     	}
     
-    	purchase.updatePurchase(obj);
+    	if(purchase.updatePurchase(obj) == -1){
+            return -1;
+        }
     	
     	return withstanding;
     }
@@ -132,14 +134,13 @@ public class Customer {
     public double addTip(Purchase purchase, double tip) {
     	
     	double total = purchase.getAmount() + tip;
-    	String merchantId = purchase.getMerchantId();
-    	
     	
     	JSONObject obj = new JSONObject();
     	obj.put("amount", total);
+    	obj.put("description", "Tip - $" + tip);
     	
-    	
-    	
+    	purchase.updatePurchase(obj);
+        
     	return total;
     }
     
@@ -151,6 +152,25 @@ public class Customer {
     public String getCustomerId() {
     	
     	return customerId;
+    }
+    
+    public int fundAccount(double amount) {
+    	
+    	this.accountBalance = this.accountBalance + amount;
+    	
+    	JSONObject obj = new JSONObject();
+    	obj.put("medium", "balance");
+    	obj.put("transaction_data", "string");
+    	obj.put("amount", accountBalance);
+    	obj.put("description", "string");
+    	
+    	try {
+    		globalHTTP.sendPost("accounts/" + accountId + "/deposits", obj);
+    		return 0;
+    	} catch (Exception e) {
+    		return -1;
+    	}
+    	
     }
     
     public String getInfo() {

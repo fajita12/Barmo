@@ -43,8 +43,8 @@ public class CustomerMain {
                         "Pay [billID] [amount] - Pay purchases\n" +
                         "Tip [billID] [amount] - Add a tip\n" +
                         "Info - Views customer info\n" +
-                        "Update - Updates customer info\n" +
-                        "Admin - overview of everything" +
+                        "Update - Updates customer info (must be in JSON format)\n" +
+                        "Admin - overview of everything\n" +
                         "Quit - Quits app\n" + 
                         "********************************************");   
             }else if(splitCmd[0].equals("view")){
@@ -75,7 +75,7 @@ public class CustomerMain {
                     System.out.println("Accounts:");
                     System.out.println(globalHTTP.sendGet("accounts"));
                     System.out.println("Purchases:");
-                    System.out.println(globalHTTP.sendGet("purchases"));
+                    globalHTTP.sendGet("merchants/57cf75cea73e494d8675ec49/purchases");
                 }catch(Exception ex){
                     System.out.println("Failed");
                 }
