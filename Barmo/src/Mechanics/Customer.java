@@ -4,6 +4,8 @@ import static Mechanics.Tester.globalHTTP;
 import org.json.JSONObject;
 
 import Mechanics.Purchase.Status;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Customer {
 	
@@ -92,7 +94,11 @@ public class Customer {
 	}
         
     public JSONObject getPurchases() {
-        return null;
+            try {
+                return new JSONObject(globalHTTP.sendGet("accounts/" + this.accountId + "/purchases"));
+            } catch (Exception ex) {
+                return null;
+            }
     }
     
     public double payTab(Purchase purchase, double amount) {

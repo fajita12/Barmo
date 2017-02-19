@@ -6,6 +6,7 @@
 package Mechanics;
 
 import java.util.Scanner;
+import org.json.JSONObject;
 
 /**
  *
@@ -43,14 +44,15 @@ public class CustomerMain {
                         "********************************************");   
             }else if(splitCmd[0].equals("view")){
                 String result = thisCust.getPurchases().toString();
+                System.out.println(result);
             }else if(splitCmd[0].equals("pay")){
-                
+                System.out.println("Status: " + thisCust.payTab(new Purchase(splitCmd[1]), Double.parseDouble(splitCmd[2])));
             }else if(splitCmd[0].equals("info")){
-                
+                System.out.println(thisCust.getInfo());
             }else if(splitCmd[0].equals("update")){
-                
-            }else if(splitCmd[0].equals("make")){
-                
+                System.out.println("Status: " + thisCust.updateCustomer(custID, new JSONObject(splitCmd[1])));
+            }else if(splitCmd[0].equals("tip")){
+                System.out.println("Status: " + thisCust.addTip(new Purchase(splitCmd[1]), Double.parseDouble(splitCmd[2])));
             }else if(splitCmd[0].equals("quit")){
                 running = false;
             }else{

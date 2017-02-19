@@ -17,7 +17,7 @@ import org.json.JSONObject;
  */
 public class MerchantMain {
     //static merchant id
-    public static final String merchID = "";
+    public static final String merchID = "57cf75cea73e494d8675ec49";
     
     public static void startUpMerchant(){
         
