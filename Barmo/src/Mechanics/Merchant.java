@@ -1,6 +1,8 @@
 package Mechanics;
 
 import static Mechanics.Tester.globalHTTP;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONObject;
 
 
@@ -29,10 +31,15 @@ public class Merchant {
 	
 	}
 	
-	public void updateMerchant(JSONObject updateData) {
+	public int updateMerchant(JSONObject updateData) {
             String cmd = "merchants/" + this.id; 
-            globalHTTP.sendPut(cmd, updateData);
-		// put /merchants/{id}
+            try {
+                globalHTTP.sendPut(cmd, updateData);
+                // put /merchants/{id}
+            } catch (Exception ex) {
+                return -1;
+            }
+            return 0;
 	}
         
         public int sendTransaction(User user, Bill bill){

@@ -93,4 +93,41 @@ public class HTTP {
         return(response.toString());
     }
     
+    public String sendPut(String cmd, JSONObject body) throws Exception{
+        String url = baseURL + cmd + APIKey;
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+        con.setDoOutput(true);
+            
+        con.setRequestProperty("Content-Type","application/json");
+        con.setRequestProperty("Accept", "application/json");
+            
+        con.setRequestMethod("PUT");
+
+        OutputStream os = con.getOutputStream();
+        OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+        osw.write(body.toString());
+        osw.flush();
+        osw.close();
+
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'PUT' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+        StringBuffer response = new StringBuffer();
+        try{
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            //print result
+            System.out.println(response.toString());
+        }catch(IOException o){
+            System.out.println(o.getMessage());
+        }
+        return(response.toString());   
+    }
 }

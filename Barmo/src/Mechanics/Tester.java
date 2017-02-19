@@ -13,16 +13,15 @@ import org.json.JSONObject;
  */
 public class Tester {
     
-    public static HTTP globalHTTP;
+    public static HTTP globalHTTP = new HTTP();
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception{
-        HTTP http = new HTTP();
 
         System.out.println("Testing 1 - Send Http GET request");
-        http.sendGet("customers");
+        globalHTTP.sendGet("customers");
 
         System.out.println("\nTesting 2 - Send Http POST request");
         JSONObject body = new JSONObject();
@@ -35,7 +34,11 @@ public class Tester {
         address.put("state", "WI");
         address.put("zip", "53703");
         body.put("address", address);
-        http.sendPost("customers", body);
+        //globalHTTP.sendPost("customers", body);
+        
+        System.out.println("Testing 3 - Sending Http PUT request");
+        
+        //globalHTTP.sendPut("customers/0", body);
     
     }
     
