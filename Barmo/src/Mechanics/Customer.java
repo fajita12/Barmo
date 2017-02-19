@@ -18,7 +18,6 @@ public class Customer {
 	public Customer(String customerId) {
 		
 		this.customerId = customerId;
-		
 		try {
 			
                     //JSONObject object = new JSONObject(globalHTTP.sendGet("customers/" + customerId + "/accounts"));
@@ -30,15 +29,15 @@ public class Customer {
                     this.firstName = obj.getString("first_name");
                     this.lastName = obj.getString("last_name");
                     address = new String[5];
-                    JSONObject address = new JSONObject(obj.getString("address"));
-                    this.address[0] = address.getString("street_number");
-                    this.address[1] = address.getString("street_name");
-                    this.address[2] = address.getString("city");
-                    this.address[3] = address.getString("state");
-                    this.address[4] = address.getString("zip");
+                    JSONObject JSONaddress = obj.getJSONObject("address");
+                    this.address[0] = JSONaddress.getString("street_number");
+                    this.address[1] = JSONaddress.getString("street_name");
+                    this.address[2] = JSONaddress.getString("city");
+                    this.address[3] = JSONaddress.getString("state");
+                    this.address[4] = JSONaddress.getString("zip");
 
                 } catch(Exception e) {
-        	
+
         	customerId = null;
         	accountId = null;
         	accountBalance = 0;
@@ -47,6 +46,7 @@ public class Customer {
         	address = null;
 			
 		}
+                
 		// post /customers
 	}
 	
@@ -163,7 +163,8 @@ public class Customer {
                 "Street Name:   " + this.address[1] + "\n" +
                 "City:          " + this.address[2] + "\n" + 
                 "State:         " + this.address[3] + "\n" + 
-                "Zip:           " + this.address[4];
+                "Zip:           " + this.address[4] + "\n";
+              //  "Account Number:" + this.accountId;
         
     }
 }

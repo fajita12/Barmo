@@ -22,13 +22,13 @@ public class Merchant {
                 this.name = obj.getString("name");
                 this.category = obj.getString("category");
                 address = new String[5];
-                JSONObject address = new JSONObject(obj.getString("address"));
-                this.address[0] = address.getString("street_number");
-                this.address[1] = address.getString("street_name");
-                this.address[2] = address.getString("city");
-                this.address[3] = address.getString("state");
-                this.address[4] = address.getString("zip");
-                JSONObject geocode = new JSONObject(obj.getString("geocode"));
+                JSONObject JSONaddress = obj.getJSONObject("address");
+                this.address[0] = JSONaddress.getString("street_number");
+                this.address[1] = JSONaddress.getString("street_name");
+                this.address[2] = JSONaddress.getString("city");
+                this.address[3] = JSONaddress.getString("state");
+                this.address[4] = JSONaddress.getString("zip");
+                JSONObject geocode = obj.getJSONObject("geocode");
                 this.lat = geocode.getString("lat");
                 this.lng = geocode.getString("lng");
             } catch (Exception ex) {
