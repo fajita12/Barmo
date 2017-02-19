@@ -49,17 +49,17 @@ public class Merchant {
             return 0;
 	}
         
-        public int sendTransaction(User user, Bill bill){
+        public int sendTransaction(Customer user, Bill bill){
             
             return 0;
         }
         
-        public int updateTransaction(User user, Bill currBill, Bill updateBill){
+        public int updateTransaction(Customer user, Bill currBill, Bill updateBill){
             
             return 0;
         }
         
-        public int deleteTransaction(User user, Bill bill){
+        public int deleteTransaction(Customer user, Bill bill){
             
             return 0;
         }

@@ -1,9 +1,9 @@
 package Mechanics;
 
 
-public class User {
+public class Customer {
 
-	public User() {
+	public Customer(String id) {
 		
 		// post /customers
 	}
@@ -27,4 +27,8 @@ public class User {
 		
 		// put /customers/{id}
 	}
+        
+        public String getPurchases(){
+            return "";
+        }
 }

@@ -30,9 +30,37 @@ public class MerchantMain {
         
         while(running){
             System.out.print("CMD:");
-            cmd = scnr.nextLine();
+            cmd = scnr.nextLine().toLowerCase();
             splitCmd = cmd.trim().split(" ");
-            
+            if(splitCmd[0].equals("help")){
+                System.out.println("*********************HELP*******************\n" +
+                        "View - Views purchases\n" +
+                        "Bill [custID] [amount] [desc] - Pay purchases\n" +
+                        "UpdateBill [purchID] [amount] [desc] - updates a purchase\n" +
+                        "DeleteBill [purchID] [amount] - deletes a purchase\n" +
+                        "Info - Views merchant info\n" +
+                        "Update - Updates merchant info\n" +
+                        "Quit - Quits app\n" +
+                        "********************************************");
+                
+                
+            }else if(splitCmd[0].equals("view")){
+                running = false;
+            }else if(splitCmd[0].equals("bill")){
+                running = false;
+            }else if(splitCmd[0].equals("updatebill")){
+                running = false;
+            }else if(splitCmd[0].equals("deletebill")){
+                running = false;
+            }else if(splitCmd[0].equals("info")){
+                running = false;
+            }else if(splitCmd[0].equals("update")){
+                running = false;
+            }else if(splitCmd[0].equals("quit")){
+                running = false;
+            }else{
+                System.out.println("Invalid Command. Type 'help' for list of valid commands");
+            }
         }
         
     }
