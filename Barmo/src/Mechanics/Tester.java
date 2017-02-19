@@ -5,7 +5,7 @@
  */
 package Mechanics;
 
-import org.json.JSONObject;
+import java.util.Scanner;
 
 /**
  *
@@ -18,28 +18,18 @@ public class Tester {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception{
-
-        System.out.println("Testing 1 - Send Http GET request");
-        globalHTTP.sendGet("customers");
-
-        System.out.println("\nTesting 2 - Send Http POST request");
-        JSONObject body = new JSONObject();
-        //body.put("first_name", "brad");
-        //body.put("last_name", "rogers");
-        JSONObject address = new JSONObject();
-        address.put("street_number", "new street");
-        address.put("street_name", "cool street");
-        address.put("city", "new city");
-        address.put("state", "MA");
-        address.put("zip", "99999");
-        body.put("address", address);
-        //globalHTTP.sendPost("customers", body);
-        
-        System.out.println("Testing 3 - Sending Http PUT request");
-        
-        globalHTTP.sendDelete("customers/58a8e9d41756fc834d9053e9");
-    
+    public static void main(String[] args){
+        System.out.println("Welcome to the Barmo Demo");
+        System.out.println("What would you like this instance to be? Customer or Merchant?");
+        Scanner scnr = new Scanner(System.in);
+        System.out.print("This Instance:");
+        String cmd = scnr.nextLine();
+        if(cmd.equals("Merchant")){
+            MerchantMain.startUpMerchant();
+        }else if(cmd.equals("Customer")){
+            CustomerMain.startUpCustomer();
+        }
+        System.out.println("Thank you for using Barmo");
     }
     
 }
