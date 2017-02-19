@@ -50,7 +50,7 @@ public class CustomerMain {
                         "********************************************");   
             }else if(splitCmd[0].equals("view")){
             	try {
-            		String result = thisCust.getPurchases().toString();
+            		String result = thisCust.getPurchases();
             		System.out.println(result);
             	} catch (NullPointerException e) {
             		System.out.println("Zero purchases on file");

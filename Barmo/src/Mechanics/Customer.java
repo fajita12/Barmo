@@ -103,11 +103,11 @@ public class Customer {
 		// put /customers/{id}
 	}
         
-    public JSONArray getPurchases() {
+    public String getPurchases() {
         
     	try {
-    		return new JSONArray(globalHTTP.sendGet("accounts/" 
-    					+ accountId + "/purchases"));
+    		return parseArray(new JSONArray(globalHTTP.sendGet("accounts/" 
+    					+ accountId + "/purchases")));
     	} catch (Exception e) {
     		
     		return null;
@@ -187,5 +187,14 @@ public class Customer {
                 "Zip:           " + this.address[4] + "\n" +
                 "Account Number:" + this.accountId;
         
+    }
+    
+    public String parseArray(JSONArray arr){
+        String builder = "";
+        for(int i = 0; i < arr.length(); i++){
+            JSONObject obj = arr.getJSONObject(i);
+            builder = builder + obj.toString() + "\n";
+        }
+        return builder;
     }
 }
