@@ -1,117 +1,116 @@
-package Mechanics;
-
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.HttpURLConnection;
-
-import javax.net.ssl.HttpsURLConnection;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Mechanics;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import org.json.JSONObject;
 /**
  *
  * @author Brad Rogers
  */
 public class HTTP {
-    
+        
     public static String baseURL = "http://api.reimaginebanking.com/";
-    
     public static String APIKey = "?key=317e9cc5ca5935508741dfe84740f0eb";
-    
-    public static String sendRequest(String cmd) throws MalformedURLException, IOException{
-        URL cmdURL = new URL(baseURL + cmd + APIKey);
-        URLConnection cmdConnection = cmdURL.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(cmdConnection.getInputStream()));
-        String inputLine;
-        
-        String requestResult = "";
-        while ((inputLine = in.readLine()) != null) 
-            requestResult += inputLine + "\n";
-        in.close();
-        
-        return requestResult;
+
+    public static void main(String[] args) throws Exception {
+        HTTP http = new HTTP();
+
+        System.out.println("Testing 1 - Send Http GET request");
+        http.sendGet("customers");
+
+        System.out.println("\nTesting 2 - Send Http POST request");
+        JSONObject body = new JSONObject();
+        body.put("first_name", "brad");
+        body.put("last_name", "rogers");
+        JSONObject address = new JSONObject();
+        address.put("street_number", "string");
+        address.put("street_name", "string");
+        address.put("city", "string");
+        address.put("state", "WI");
+        address.put("zip", "53703");
+        body.put("address", address);
+        http.sendPost("customers", body);
     }
-    
-    public static void sendGet(String cmd) throws Exception {
 
-                String url = baseURL + cmd + APIKey;
-		URL obj = new URL(url);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	// HTTP GET request
+    private String sendGet(String cmd) throws Exception {
 
-		// optional default is GET
-		con.setRequestMethod("GET");
+        String url = baseURL + cmd + APIKey;
 
-		//add request header
-		con.setRequestProperty("content-type","application/json");
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL : " + url);
-		System.out.println("Response Code : " + responseCode);
+        // optional default is GET
+        con.setRequestMethod("GET");
 
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
+        con.setRequestProperty("content-type","application/json");
 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
 
-		//print result
-		System.out.println(response.toString());
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
 
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        //print result
+        System.out.println(response.toString());
+        return(response.toString());
 	}
 
 	// HTTP POST request
-    public static void sendPost(String cmd) throws Exception {
+    private String sendPost(String cmd, JSONObject body) throws Exception {
 
-                String url = baseURL + cmd + APIKey;
-		URL obj = new URL(url);
-		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+        String url = baseURL + cmd + APIKey;
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-		//add reuqest header
-		con.setRequestMethod("POST");
-		//con.setRequestProperty("User-Agent", USER_AGENT);
-		//con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-                con.setRequestProperty("content-type","application/json");
+        con.setDoOutput(true);
+            
+        con.setRequestProperty("Content-Type","application/json");
+        con.setRequestProperty("Accept", "application/json");
+            
+        con.setRequestMethod("POST");
 
-		String urlParameters = "code=0&";
+        OutputStream os = con.getOutputStream();
+        OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+        osw.write(body.toString());
+        osw.flush();
+        osw.close();
 
-		// Send post request
-		con.setDoOutput(true);
-		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(urlParameters);
-		wr.flush();
-		wr.close();
+        int responseCode = con.getResponseCode();
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Response Code : " + responseCode);
+        StringBuffer response = new StringBuffer();
+        try{
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
 
-		int responseCode = con.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + urlParameters);
-		System.out.println("Response Code : " + responseCode);
-
-		BufferedReader in = new BufferedReader(
-		        new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
-
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		in.close();
-
-		//print result
-		System.out.println(response.toString());
-
-	}
+            //print result
+            System.out.println(response.toString());
+        }catch(IOException o){
+            System.out.println(o.getMessage());
+        }
+        return(response.toString());
+    }
+    
 }
