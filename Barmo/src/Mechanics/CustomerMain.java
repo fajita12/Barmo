@@ -5,6 +5,8 @@
  */
 package Mechanics;
 
+import static Mechanics.MerchantMain.merchID;
+import static Mechanics.Tester.globalHTTP;
 import java.util.Scanner;
 import org.json.JSONObject;
 
@@ -35,24 +37,48 @@ public class CustomerMain {
             splitCmd = cmd.trim().split(" ");
             if(splitCmd[0].equals("help")){
                 System.out.println("*********************HELP*******************\n" +
+                        "Merchant ID: " + merchID + "\n" +
+                        "Customer ID: " + custID + "\n\n" +
                         "View - Views purchases\n" +
                         "Pay [billID] [amount] - Pay purchases\n" +
                         "Tip [billID] [amount] - Add a tip\n" +
                         "Info - Views customer info\n" +
                         "Update - Updates customer info\n" +
+                        "Admin - overview of everything" +
                         "Quit - Quits app\n" + 
                         "********************************************");   
             }else if(splitCmd[0].equals("view")){
-                String result = thisCust.getPurchases().toString();
-                System.out.println(result);
+                try{
+                    String result = thisCust.getPurchases().toString();
+                    System.out.println(result);
+                }catch(Exception ex){
+                    System.out.println("Zero purchases on file");
+                }
             }else if(splitCmd[0].equals("pay")){
+                try{
                 System.out.println("Status: " + thisCust.payTab(new Purchase(splitCmd[1]), Double.parseDouble(splitCmd[2])));
+                }catch(Exception ex){
+                    System.out.println("No Payments available to pay");
+                }
             }else if(splitCmd[0].equals("info")){
                 System.out.println(thisCust.getInfo());
             }else if(splitCmd[0].equals("update")){
                 System.out.println("Status: " + thisCust.updateCustomer(custID, new JSONObject(splitCmd[1])));
             }else if(splitCmd[0].equals("tip")){
                 System.out.println("Status: " + thisCust.addTip(new Purchase(splitCmd[1]), Double.parseDouble(splitCmd[2])));
+            }else if(splitCmd[0].equals("admin")){
+                try{
+                    System.out.println("Merchants:");
+                    System.out.println(globalHTTP.sendGet("merchants"));
+                    System.out.println("Customers:");
+                    System.out.println(globalHTTP.sendGet("customers"));
+                    System.out.println("Accounts:");
+                    System.out.println(globalHTTP.sendGet("accounts"));
+                    System.out.println("Purchases:");
+                    System.out.println(globalHTTP.sendGet("purchases"));
+                }catch(Exception ex){
+                    System.out.println("Failed");
+                }
             }else if(splitCmd[0].equals("quit")){
                 running = false;
             }else{

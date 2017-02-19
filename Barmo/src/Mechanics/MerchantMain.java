@@ -5,6 +5,7 @@
  */
 package Mechanics;
 
+import static Mechanics.CustomerMain.custID;
 import static Mechanics.Tester.globalHTTP;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -38,12 +39,15 @@ public class MerchantMain {
             splitCmd = cmd.trim().split(" ");
             if(splitCmd[0].equals("help")){
                 System.out.println("*********************HELP*******************\n" +
+                        "Merchant ID: " + merchID + "\n" +
+                        "Customer ID: " + custID + "\n\n" +
                         "View - Views purchases\n" +
                         "Bill [custID] [amount] [desc] - bill someone\n" +
                         "UpdateBill [custID] [purchID] [amount] [desc] - updates a bill\n" +
                         "DeleteBill [purchID] [amount] - deletes a bill\n" +
                         "Info - Views merchant info\n" +
                         "Update - Updates merchant info\n" +
+                        "Admin - overview of everything" + 
                         "Quit - Quits app\n" +
                         "********************************************");
                 
@@ -68,6 +72,19 @@ public class MerchantMain {
                     obj.put(splitCmd[i].split(":")[0], splitCmd[i].split(":")[1]);
                 }
                 thisMerch.updateMerchant(obj);
+            }else if(splitCmd[0].equals("admin")){
+                try{
+                    System.out.println("Merchants:");
+                    System.out.println(globalHTTP.sendGet("merchants"));
+                    System.out.println("Customers:");
+                    System.out.println(globalHTTP.sendGet("customers"));
+                    System.out.println("Accounts:");
+                    System.out.println(globalHTTP.sendGet("accounts"));
+                    System.out.println("Purchases:");
+                    System.out.println(globalHTTP.sendGet("purchases"));
+                }catch(Exception ex){
+                    System.out.println("Failed");
+                }
             }else if(splitCmd[0].equals("quit")){
                 running = false;
             }else{
